@@ -1,6 +1,6 @@
 # 🧹 Flutter Project Cleaner
 
-A highly performant, cross-platform Dart script that recursively scans for Flutter projects on your system and cleans up heavy, unnecessary build output files (`build/`, `.dart_tool/`, `ios/Pods`, `macos/Pods`, `.symlinks`). This helps free up gigabytes of disk space instantly!
+A highly performant, cross-platform Dart script that recursively scans for Flutter projects on your system and cleans up heavy, unnecessary build output files (`build/`, `.dart_tool/`, `ios/Pods`, `macos/Pods`, `.symlinks`). It can also clean system-level caches (Gradle, Xcode, Docker). This helps free up gigabytes of disk space instantly!
 
 ---
 
@@ -17,7 +17,7 @@ macOS uses **Zsh** by default. To add a terminal alias:
    echo 'alias fclean="dart run /Users/altaysakarya/my_programs/flutter_project_cleaner/flutter_cleaner.dart"' >> ~/.zshrc
    source ~/.zshrc
    ```
-2. You can now type `fclean` in any directory to scan and clean it! 
+2. You can now type `fclean` in any directory to scan and clean it!
 
 > **Permission Errors (Operation not permitted):**
 > If you run the script on protected folders like `~/Documents`, `~/Downloads`, or `~/Desktop` and encounter permission errors, you must grant "Full Disk Access" to your Terminal.
@@ -69,3 +69,10 @@ On Windows, you can create a permanent alias (function) using **PowerShell**:
   ```bash
   fclean ~/Projects/Flutter
   ```
+- To preview what would be deleted **without actually deleting anything**, use `--dry-run`:
+  ```bash
+  fclean --dry-run
+  fclean ~/Projects/Flutter --dry-run
+  ```
+
+When you run the script, you will first be asked whether you also want to clean system-level caches (Gradle, Xcode DerivedData, Xcode iOS DeviceSupport, unavailable Xcode simulators, and Docker). All cleanups report the actual size of each deleted item, and the final summary shows the total space saved across both project and system caches.
